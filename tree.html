@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_22</title>
+    <style>
+        .root {
+            display: flex;
+            padding: 20px;
+            width: 1000px;
+            height: 300px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            justify-content: space-between;
+        }
+
+        .child_1 {
+            display: flex;
+            padding: 20px;
+            width: 450px;
+            height: 260px;
+            border: 1px solid red;
+            justify-content: space-between;
+        }
+
+        .child_2 {
+            display: flex;
+            padding: 20px;
+            width: 170px;
+            height: 220px;
+            border: 1px solid green;
+            justify-content: space-between;
+        }
+
+        .child_3 {
+            display: flex;
+            padding: 20px;
+            width: 35px;
+            height: 180px;
+            border: 1px solid blue;
+            justify-content: space-between;
+        }
+
+        input {
+            margin-left: 300px;
+            width: 50px;
+            height: 40px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="root">
+    <div class="child_1">
+        <div class="child_2">
+            <div class="child_3"></div>
+            <div class="child_3"></div>
+        </div>
+        <div class="child_2">
+            <div class="child_3"></div>
+            <div class="child_3"></div>
+        </div>
+    </div>
+    <div class="child_1">
+        <div class="child_2">
+            <div class="child_3"></div>
+            <div class="child_3"></div>
+        </div>
+        <div class="child_2">
+            <div class="child_3"></div>
+            <div class="child_3"></div>
+        </div>
+    </div>
+</div>
+<input type="button" value="前序">
+<input type="button" value="中序">
+<input type="button" value="后序">
+<script type="text/javascript">
+    var btn = document.getElementsByTagName("input"),
+            front = btn[0],
+            middle = btn[1],
+            end = btn[2],
+            root = document.getElementsByClassName('root')[0],
+            list = [],
+            timer = null;
+
+    function frontOrder(node){    //前中后序算法实现
+        if(!(node == null)){
+            list.push(node);
+            frontOrder(node.firstElementChild);
+            frontOrder(node.lastElementChild);
+        }
+
+    }
+    function middleOrder(node){
+        if(!(node == null)){
+            middleOrder(node.firstElementChild);
+            list.push(node);
+            middleOrder(node.lastElementChild);
+        }
+    }
+
+    function endOrder(node){
+        if(!(node == null)){
+            endOrder(node.firstElementChild);
+            endOrder(node.lastElementChild);
+            list.push(node);
+        }
+    }
+
+    function render(){         //输出
+        var i = 0;
+        list[i].style.backgroundColor = "red";
+        timer = setInterval(function(argument){
+            i++;
+            if(i<list.length){
+                list[i-1].style.backgroundColor = "#fff";
+                list[i].style.backgroundColor = "red";
+            }
+            else{
+                clearInterval(timer);
+                list[list.length-1].style.backgroundColor = "#fff";
+            }
+        },500)
+    }
+
+    function init(){                  //初始化
+        list = [];
+        clearInterval(timer);
+        var divs = document.getElementsByTagName('div');
+        for(var i =0;i<divs.length;i++){
+            divs[i].style.backgroundColor = "#fff";
+        }
+    }
+
+    front.onclick = function () {      //绑定事件
+        init();
+        frontOrder(root);
+        render();
+    };
+    middle.onclick = function () {
+        init();
+        middleOrder(root);
+        render();
+    };
+    end.onclick = function () {
+        init();
+        endOrder(root);
+        render();
+    };
+</script>
+</body>
+</html>
