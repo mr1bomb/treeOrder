@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Stack() {
+        this.top = null;
+        this.size = 0;
+    }
+    Stack.prototype = {
+        constructor: Stack,
+        push: function (data) {
+            var node = {
+                data: data,
+                next: null
+            };
+            node.next = this.top;
+            this.top = node;
+            this.size++;
+        },
+        pop: function (data) {
+            if (this.top === null) return null;
+            var out = this.top;
+            this.top = this.top.next;
+            if (this.size > 0) this.size--;
+            return out.data;
+        },
+        displayAll: function () {
+            if (this.top === null) return null;
+            var arr = [];
+            var current = this.top;
+            for (var i = 0, len = this.size; i < len; i++) {
+                arr[i] = current.data;
+                current = current.next;
+            }
+            return arr;
+        }
+    }
+</script>
+</body>
+</html>

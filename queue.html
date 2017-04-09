@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Queue(len) {
+        this.length = len;
+        this.list = [];
+    }
+    Queue.prototype = {
+        push: function (data) {
+            if (!data) {
+                return false;
+            }
+            if (this.list.length == this.length) {
+                this.shift();
+            }
+            this.list.push(data);
+            return true;
+        },
+        shift: function () {
+            return this.list.splice(0, 1).join();
+        },
+        empty: function () {
+            return this.list.length == 0 ? true : false;
+        },
+        size: function() {
+            return this.list.length;
+        }
+    };
+    var a = new Queue(3);
+    a.push("1");
+    a.push("2");
+    a.push("3");
+    a.push("4");
+    a.shift();
+    console.log(a);
+</script>
+</body>
+</html>
