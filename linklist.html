@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Lian(data,pre,next){
+        this.data = data;
+        this.preNode = pre;
+        if(this.preNode ){
+            pre.nextNode = this;
+        }
+        this.nextNode = next;
+    }
+    Lian.prototype.aaa = function(){
+
+        if(this.nextNode){
+            return this.data.name + this.nextNode.aaa();
+        }else{
+            return this.data.name;
+        }
+    };
+    Lian.prototype.bbb = function(node){
+        if(this.nextNode && this.nextNode.preNode){
+            this.nextNode.preNode = node;
+        }
+        node.nextNode = this.nextNode;
+        node.preNode = this;
+        this.nextNode = node;
+    };
+    Lian.prototype.ccc = function(){
+        this.nextNode.preNode = this.preNode;
+        this.preNode.nextNode = this.nextNode;
+    };
+    var q = new Lian({"name": "1"}, null, null);
+    var w = new Lian({"name": "2"}, q, null);
+    var e = new Lian({"name": "3"}, w, null);
+    var lHead = q;
+    w.ccc();
+    lHead.bbb(w);
+    console.log(lHead.aaa());
+</script>
+</body>
+</html>
